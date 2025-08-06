@@ -1,2 +1,2 @@
 ﻿adventurerShop.Main();
-Program2.Main();
+guessingGame.Main();

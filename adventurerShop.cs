@@ -1,4 +1,4 @@
-﻿public class shopPrices
+﻿public class adventurerShop
 {
     public static void Main()
     {

@@ -1,4 +1,4 @@
-public class Program2
+public class guessingGame
 {
     public static void Main()
     {

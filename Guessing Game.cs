@@ -30,7 +30,7 @@ public class Program2
             }
 
         }
-        while (rightGuess != false);
+        while (rightGuess == false);
 
     }
 }

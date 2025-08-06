@@ -1,41 +1,71 @@
-﻿string move;
-char[] positions = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-string board;
-void playerMove()
+﻿using System.Xml.Serialization;
+
+Dictionary<string, float> priceList = new Dictionary<string, float>
+{
+    {"Rope", 10},
+    {"Torches", 15},
+    {"Climbing Equipment", 25},
+    {"Clean Water", 1},
+    {"Machete", 20},
+    {"Canoe", 200},
+    {"Food Supplies", 1}
+};
+
+int selection;
+string product;
+int discountFactor = 1;
+string name;
+
+
+
+void checkName()
 {
     do
     {
-        Console.WriteLine("\n", board);
-        Console.WriteLine("Choose your move: 1~9");
-        move = Console.ReadLine();
+        Console.WriteLine("Identify yourself!");
+        name = Console.ReadLine();
+        if (name == "Suhaib")
+        {   discountFactor = 2;
+            Console.WriteLine("Ah, my friend, you have returned!\nLet me get you a discount! 50% off from all items!\n Browse to your hearts content!");
+        };
     }
-    while (move == "X" || move == "O" || !(Array.IndexOf(positions, Convert.ToChar(move)) >= 0));
-    positions[Array.IndexOf(positions, Convert.ToChar(move))] = 'X';
+    while (string.IsNullOrEmpty(name));
 };
 
-string updateBoard(char[] positions)
+void checkPrice()
 {
-    board = $" {positions[0]} | {positions[1]} | {positions[2]} \n___|___|___\n {positions[3]} | {positions[4]} | {positions[5]} \n___|___|___\n {positions[6]} | {positions[7]} | {positions[8]} \n   |   |   ";
-    return board;
-}
-;
 
-Console.WriteLine("Welcome to Tic-Tac-Toe!");
-updateBoard(positions);
-playerMove();
-updateBoard(positions);
-Console.WriteLine(board);
+    Console.Write(@"The following items are available:
+    1 - Rope
+    2 - Torches
+    3 - Climbing Equipment
+    4 - Clean Water
+    5 - Machete
+    6 - Canoe
+    7 - Food Supplies
+    What number do you want to see the price of? ");
 
+    do
+    {
+        selection = Convert.ToInt32(Console.ReadLine());
+        if (selection > 7 || selection < 1)
+            Console.WriteLine("Invalid Product Number! Select a number between 1~7!");
+    }
+    while (selection > 7 || selection < 1);
 
+    product = selection switch
+    {
+        1 => $"Ropes cost {priceList["Rope"] / discountFactor} gold.",
+        2 => $"Torches cost {priceList["Torches"] / discountFactor} gold.",
+        3 => $"Climbing Equipment costs {priceList["Climbing Equipment"] / discountFactor} gold.",
+        4 => $"Clean Water cost {priceList["Clean Water"] / discountFactor} gold.",
+        5 => $"Machete cost {priceList["Machete"] / discountFactor} gold.",
+        6 => $"Canoe cost {priceList["Canoe"] / discountFactor} gold.",
+        7 => $"Food Supplies cost {priceList["Food Supplies"] / discountFactor} gold."
 
+    };
+};
 
-
-//string cpuMove(string move)
-//{
-
-//}
-
-//Check array for elements that match move, if none found
-
-//Make 2 functions designed for player moves and cpu moves. There is a lot of repitition of updating the board and printing the value.
-//Figure out how to make it so that the process is split in to repeatable methods.
+checkName();
+checkPrice();
+Console.WriteLine(product);
